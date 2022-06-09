@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.board">
+	<!-- 리절트 맵 정의 -->	
+	<resultMap id="boardResult" type="boardVO">
+		<result property="board_idx" column="board_idx" />
+		<result property="board_title" column="board_title" />
+		<result property="board_content" column="board_content" />		
+		<result property="board_type" column="board_type" />		
+		<result property="write_date" column="write_date" />
+		<result property="user_idx" column="user_idx" />		
+		<result property="search_field" column="search_field" />
+		<result property="search_string" column="search_string" />
+		<result property="start_row" column="start_row" />
+		<result property="end_row" column="end_row" />
+		<result property="board_file_path" column="board_file_path" />
+		<result property="board_real_file" column="board_real_file" />
+	</resultMap>
+
+	<select id="selectAllBoardList" resultType="BoardVO" parameterType="BoardVO" >
+	    <![CDATA[
+			SELECT 
+				A.board_idx,
+				A.board_title,
+				A.write_date,
+				(select user_id from shop_user where user_idx = A.user_idx) AS user_id,
+				A.board_file_path,
+				A.board_real_file
+			FROM
+				shop_board AS A
+			WHERE delyn='N' 
+		]]>
+		
+		<if test = 'search_string != null and search_string != ""'>
+			AND A.board_title LIKE CONCAT('%', #{search_string}, '%')
+		</if>
+			
+		<![CDATA[
+			ORDER BY board_idx DESC
+			LIMIT #{start_row},#{end_row}
+		]]>
+	</select>
+	
+	<select id="selectBoardView" parameterType="BoardVO" resultType="BoardVO">
+	    <![CDATA[
+	    	SELECT *
+	    	FROM shop_board
+	    	WHERE board_idx = #{board_idx}
+		]]>
+	</select>
+
+  <insert id="Board_insert"  parameterType="BoardVO">
+  <![CDATA[
+    	insert into shop_board(
+    		board_idx,
+			board_title,
+			board_content,
+			board_type,
+			board_file_path,
+			board_real_file,
+			user_idx
+		)
+		values(
+			#{board_idx},
+			#{board_title},
+			#{board_content},
+			#{board_type},
+			#{board_file_path},
+			#{board_real_file},
+			#{user_idx}
+		)
+   ]]>      
+  </insert>
+  
+  <update id="Board_delete"  parameterType="BoardVO">
+  <![CDATA[
+    	UPDATE shop_board
+    	SET delyn = 'Y'
+		WHERE board_idx = #{board_idx}
+   ]]>      
+  </update>
+  
+  <update id="Board_update"  parameterType="BoardVO">
+  <![CDATA[
+    	UPDATE shop_board
+    	SET
+	    	board_title = #{board_title},
+			board_content = #{board_content}
+		WHERE board_idx = #{board_idx}
+   ]]>      
+  </update>
+
+  
+	  <!-- 총 게시글 갯수 출력 -->
+	<select id="countBoard" resultType="int">
+		SELECT COUNT(*) FROM shop_board  WHERE delyn = 'N'
+	</select>
+	
+	  
+</mapper>

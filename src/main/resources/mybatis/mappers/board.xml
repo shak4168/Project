@@ -4,23 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.board">
-	<!-- 리절트 맵 정의 -->	
-	<resultMap id="boardResult" type="boardVO">
-		<result property="board_idx" column="board_idx" />
-		<result property="board_title" column="board_title" />
-		<result property="board_content" column="board_content" />		
-		<result property="board_type" column="board_type" />		
-		<result property="write_date" column="write_date" />
-		<result property="user_idx" column="user_idx" />		
-		<result property="search_field" column="search_field" />
-		<result property="search_string" column="search_string" />
-		<result property="start_row" column="start_row" />
-		<result property="end_row" column="end_row" />
-		<result property="board_file_path" column="board_file_path" />
-		<result property="board_real_file" column="board_real_file" />
-	</resultMap>
-
-	<select id="selectAllBoardList" resultType="BoardVO" parameterType="BoardVO" >
+	<select id="selectAllBoardList" resultType="map" parameterType="map" >
 	    <![CDATA[
 			SELECT 
 				A.board_idx,
@@ -44,7 +28,7 @@
 		]]>
 	</select>
 	
-	<select id="selectBoardView" parameterType="BoardVO" resultType="BoardVO">
+	<select id="selectBoardView" parameterType="map" resultType="map">
 	    <![CDATA[
 	    	SELECT *
 	    	FROM shop_board
@@ -52,7 +36,7 @@
 		]]>
 	</select>
 
-  <insert id="Board_insert"  parameterType="BoardVO">
+  <insert id="Board_insert"  parameterType="map">
   <![CDATA[
     	insert into shop_board(
     		board_idx,
@@ -75,7 +59,7 @@
    ]]>      
   </insert>
   
-  <update id="Board_delete"  parameterType="BoardVO">
+  <update id="Board_delete"  parameterType="map">
   <![CDATA[
     	UPDATE shop_board
     	SET delyn = 'Y'
@@ -83,7 +67,7 @@
    ]]>      
   </update>
   
-  <update id="Board_update"  parameterType="BoardVO">
+  <update id="Board_update"  parameterType="map">
   <![CDATA[
     	UPDATE shop_board
     	SET

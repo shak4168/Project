@@ -1,3 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<jsp:forward page="/index.do"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+------------------------------------------<br>
+<br>
+<a href="#">메인화면</a><br>
+메인화면 header<br>
+메인화면 footer<br>
+<br>
+------------------------------------------<br>
+<br>
+<a href="#">질문과답변</a><br>
+목록<br>
+등록(및 수정)<br>
+상세<br>
+<br>
+<a href="#">자주하는질문</a><br>
+목록<br>
+등록(및 수정)<br>
+상세<br>
+답변 등록 및 수정<br>
+<br>
+------------------------------------------<br>
+<br>
+<a href="#">상품</a><br>
+상품 목록<br>
+상품 상세<br>
+<br>
+<a href="#">위시리스트</a><br>
+위시리스트 목록<br>
+<br>
+<a href="#">장바구니</a><br>
+장바구니 목록<br>
+<br>
+<a href="#">상품 문의하기</a><br>
+<br>
+------------------------------------------<br>
+<br>
+<a href="#">내 정보</a><br>
+개인정보 수정<br>
+
+<a href="#">문의 조회</a><br>
+문의 목록<br>
+문의 상세<br>
+문의 등록(및 수정)<br>
+<br>
+------------------------------------------<br>
